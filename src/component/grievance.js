@@ -86,8 +86,9 @@ const Grievance = props => {
                 {
                     
                    title:"",
-                   image:"",
+                  
                    detail:"",
+                     image:"", 
                 }
             }
             onSubmit={(data ,{setSubmitting})=> {
