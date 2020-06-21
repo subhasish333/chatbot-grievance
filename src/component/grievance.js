@@ -67,9 +67,7 @@ const Grievance = props => {
 
     
     const classes = useStyles();
-    function handleSubmit() {
-        setDisabled(true);
-    };
+    
     let currentUser = JSON.parse(localStorage.getItem("user"));
     const headers = {
       'Content-Type': 'application/json',
@@ -81,25 +79,33 @@ const Grievance = props => {
     const [disabled, setDisabled] = useState(true);
     const [grievance, updateGrievance] = useState([]);
 
-    console.log("Grievance :",grievance[0] ? grievance[0].Name : '');
+   
     return (
         <Formik
             initialValues={
                 {
-                    name: grievance[0] ? (grievance[0]).Name : '' ,
-                    detail: "Write details of you Grievance ....",                    
-                    occupation: "Student",
-                    age: "22",
-                    marital: "Unmarried"
+                    
+                   title:"",
+                   image:"",
+                   detail:"",
                 }
             }
-            onSubmit={handleSubmit}
+            onSubmit={(data ,{setSubmitting})=> {
+                
+                setSubmitting(true);
+                console.log("submit:",data);
+                setSubmitting(false);
+              }}
           
         >
             {props => {
                 const {
                     values,
-                    
+                    handleChange,
+                    handleBlur,
+                    touched,
+                    errors,
+                    isSubmitting,
                     handleSubmit
                 } = props;
                 return (
@@ -108,11 +114,11 @@ const Grievance = props => {
                         
                       
                                             
-                            <div className={classes.container} alignItems="center" justify="center">
+                            <div className={classes.container} alignitems="center" justify="center">
                             
-                                <div className={classes.leftSide} alignItems="center" justify="center">
+                                <div className={classes.leftSide} alignitems="center" justify="center">
                                 <div className={classes.top}>
-                                <Grid container spacing={2} alignItems="center" justify="center">
+                                <Grid container spacing={2} alignitems="center" justify="center">
                                 Grievance Portal
                             </Grid>
                             </div>
@@ -124,7 +130,16 @@ const Grievance = props => {
                                         <Paper className={classes.paper}>
                                             
                                         <Grid item xs={12} >
-                                        <TextField placeholder="Title:" variant="outlined"  fullWidth />
+                                        <TextField 
+                                        name="title" 
+                                        value={values.title}
+                                        placeholder="Title:"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                       
+
+
+                                        variant="outlined"  fullWidth />
                                         </Grid>
                                         </Paper>
                                         
@@ -133,8 +148,10 @@ const Grievance = props => {
 
                                         <Grid item xs={12} >
                                         <TextField
-                                        id="outlined-multiline-static"
-                                        
+                                        name="detail" 
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.detail}
                                         multiline
                                         rows={5}
                                     
@@ -153,12 +170,18 @@ const Grievance = props => {
                                         multiple
                                         type="file"
                                       />
-                                      <label htmlFor="raised-button-file" >
+                                      <label htmlFor="raised-button-file" 
+                                      name="image" 
+                                      value={values.image}
+                                     
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      >
                                         <Button variant="contained" color="default" component="span">
                                         <CameraAltIcon color="action" /> Upload
                                         </Button>
                                       </label>
-                                             <Grid container spacing={4} alignItems="center" justify="flex-end">
+                                             <Grid container spacing={4} aligntems="center" justify="flex-end">
                                                 <Grid item ><Button variant="contained" color="primary" onClick={handleSubmit}><SearchIcon color="action" />Submit</Button></Grid>
                                             </Grid>
                                  </Paper>
