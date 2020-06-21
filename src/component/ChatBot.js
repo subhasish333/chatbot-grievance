@@ -21,7 +21,7 @@ class SimpleForm extends Component {
       padding: "10px",
       fontFamily: "Arial"
     };
-    const theme = {
+    const theme = { 
       background: '#EAF0F1',
       fontFamily: 'Helvetica Neue',
       headerBgColor: '#3C40C6',
